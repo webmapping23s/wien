@@ -31,7 +31,7 @@ let layerControl = L.control.layers({
     "BasemapAT Beschriftung": L.tileLayer.provider("BasemapAT.overlay")
 }, {
     "Vienna Sightseeing Haltestellen": themaLayer.stops,
-    "Vienna sightseeing Linien": themaLayer.lines,
+    "Vienna Sightseeing Linien": themaLayer.lines,
     "Fußgängerzonen": themaLayer.zones,
     "Sehenswürdigkeiten": themaLayer.sites
 }).addTo(map);
