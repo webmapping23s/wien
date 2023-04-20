@@ -76,8 +76,12 @@ async function showSites(url) {
     L.geoJSON(jsondata, {
         onEachFeature: function(feature, layer) {
             let prop = feature.properties;
-            layer.bindPopup(prop.NAME);
-            console.log(feature.properties, prop.NAME);
+            layer.bindPopup(`
+                <img src="${prop.THUMBNAIL}" alt="*">
+                <h4><a href="${prop.WEITERE_INF}" target="Wien">${prop.NAME}</a></h4>
+                <address>${prop.ADRESSE}</address>
+            `);
+            //console.log(feature.properties, prop.NAME);
         }
     }).addTo(themaLayer.sites);
 }
