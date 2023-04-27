@@ -16,10 +16,10 @@ let map = L.map("map", {
 
 // thematische Layer
 let themaLayer = {
-    stops: L.featureGroup(),
+    stops: L.featureGroup().addTo(map),
     lines: L.featureGroup(),
     zones: L.featureGroup(),
-    sites: L.featureGroup().addTo(map)
+    sites: L.featureGroup()
 }
 
 // Hintergrundlayer
@@ -49,6 +49,15 @@ async function showStops(url) {
     let jsondata = await response.json();
     //console.log(response, jsondata);
     L.geoJSON(jsondata, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/bus.png",
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37],
+                })
+            });
+        },
         onEachFeature: function(feature, layer) {
             let prop = feature.properties;
             layer.bindPopup(`
@@ -140,7 +149,6 @@ async function showSites(url) {
     //console.log(response, jsondata);
     L.geoJSON(jsondata, {
         pointToLayer: function(feature, latlng) {
-            L.marker(latlng).addTo(map)
             return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: "icons/photo.png",
