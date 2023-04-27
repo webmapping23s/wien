@@ -50,9 +50,10 @@ async function showStops(url) {
     //console.log(response, jsondata);
     L.geoJSON(jsondata, {
         pointToLayer: function(feature, latlng) {
+            //console.log(feature.properties)
             return L.marker(latlng, {
                 icon: L.icon({
-                    iconUrl: "icons/bus.png",
+                    iconUrl: `icons/bus_${feature.properties.LINE_ID}.png`,
                     iconAnchor: [16, 37],
                     popupAnchor: [0, -37],
                 })
