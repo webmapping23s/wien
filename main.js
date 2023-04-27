@@ -94,10 +94,10 @@ async function showZones(url) {
             layer.bindPopup(`
             <h4>Fußgängerzone ${prop.ADRESSE}</h4>
             <p><i class="fa-regular fa-clock"></i>
-               ${prop.ZEITRAUM}
+               ${prop.ZEITRAUM || "dauerhaft"}
             </p>
             <p><i class="fa-solid fa-circle-info"></i>
-               ${prop.AUSN_TEXT}
+               ${prop.AUSN_TEXT || "keine Ausnahmen"}
             </p>
         `);
         }
