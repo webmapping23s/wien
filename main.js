@@ -17,8 +17,8 @@ let map = L.map("map", {
 // thematische Layer
 let themaLayer = {
     stops: L.featureGroup(),
-    lines: L.featureGroup().addTo(map),
-    zones: L.featureGroup(),
+    lines: L.featureGroup(),
+    zones: L.featureGroup().addTo(map),
     sites: L.featureGroup()
 }
 
@@ -108,6 +108,15 @@ async function showZones(url) {
     let jsondata = await response.json();
     //console.log(response, jsondata);
     L.geoJSON(jsondata, {
+        style: function (feature) {
+            return {
+                color: "#F012BE",
+                weight: 1,
+                fillOpacity: 0.1,
+                opacity: 0.4
+            };
+        },
+
         onEachFeature: function(feature, layer) {
             let prop = feature.properties;
             layer.bindPopup(`
