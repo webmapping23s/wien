@@ -19,7 +19,8 @@ let themaLayer = {
     stops: L.featureGroup().addTo(map),
     lines: L.featureGroup().addTo(map),
     zones: L.featureGroup().addTo(map),
-    sites: L.featureGroup().addTo(map)
+    sites: L.featureGroup().addTo(map),
+    hotels: L.featureGroup().addTo(map)
 }
 
 // Hintergrundlayer
@@ -35,7 +36,8 @@ let layerControl = L.control.layers({
     "Vienna Sightseeing Haltestellen": themaLayer.stops,
     "Vienna Sightseeing Linien": themaLayer.lines,
     "Fußgängerzonen": themaLayer.zones,
-    "Sehenswürdigkeiten": themaLayer.sites
+    "Sehenswürdigkeiten": themaLayer.sites,
+    "Hotels und Unterkünfte": themaLayer.hotels
 }).addTo(map);
 
 // Maßstab
@@ -170,3 +172,34 @@ async function showSites(url) {
     }).addTo(themaLayer.sites);
 }
 showSites("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json");
+
+// Hotels
+async function showHotels(url) {
+    let response = await fetch(url);
+    let jsondata = await response.json();
+    //console.log(response, jsondata);
+    L.geoJSON(jsondata, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/hotel_0star.png",
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37],
+                })
+            });
+        },
+        onEachFeature: function(feature, layer) {
+            let prop = feature.properties;
+            layer.bindPopup(`
+                <h3>${prop.BETRIEB}</h3>
+                <h4>${prop.BETRIEBSART_TXT} ${prop.KATEGORIE_TXT}</h4>
+                <hr>
+                Addr.: ${prop.ADRESSE}<br>
+                Tel.: ${prop.KONTAKT_TEL}<br>
+                <a href="mailto:${prop.KONTAKT_EMAIL}">${prop.KONTAKT_EMAIL}</a><br>
+                <a href="${prop.WEBLINK1}">Homepage</a><br>
+            `);
+        }
+    }).addTo(themaLayer.hotels);
+}
+showHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json");
