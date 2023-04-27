@@ -195,7 +195,7 @@ async function showHotels(url) {
                 <h4>${prop.BETRIEBSART_TXT} ${prop.KATEGORIE_TXT}</h4>
                 <hr>
                 Addr.: ${prop.ADRESSE}<br>
-                Tel.: ${prop.KONTAKT_TEL}<br>
+                Tel.: <a href="tel:${prop.KONTAKT_TEL}">${prop.KONTAKT_TEL}</a><br>
                 <a href="mailto:${prop.KONTAKT_EMAIL}">${prop.KONTAKT_EMAIL}</a><br>
                 <a href="${prop.WEBLINK1}">Homepage</a><br>
             `);
