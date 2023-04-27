@@ -96,7 +96,7 @@ async function showLines(url) {
             </p>
         `);
         lineNames[prop.LINE_ID] = prop.LINE_NAME;
-        console.log(lineNames)
+        //console.log(lineNames)
         }
     }).addTo(themaLayer.lines);
 }
