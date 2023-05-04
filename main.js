@@ -180,9 +180,25 @@ async function showHotels(url) {
     //console.log(response, jsondata);
     L.geoJSON(jsondata, {
         pointToLayer: function(feature, latlng) {
+            //console.log(feature.properties.KATEGORIE_TXT)
+            let prop = feature.properties;
+            let hotelIcon = "";
+            if (prop.KATEGORIE_TXT === "1*") {
+                hotelIcon = "icons/hotel_1star.png";
+            } else if (prop.KATEGORIE_TXT === "2*") {
+                hotelIcon = "icons/hotel_2stars.png";
+            } else if (prop.KATEGORIE_TXT === "3*") {
+                hotelIcon = "icons/hotel_3stars.png";
+            } else if (prop.KATEGORIE_TXT === "4*") {
+                hotelIcon = "icons/hotel_4stars.png";
+            } else if (prop.KATEGORIE_TXT === "5*") {
+                hotelIcon = "icons/hotel_5stars.png";
+            } else {
+                hotelIcon = "icons/hotel_0star.png";
+            }
             return L.marker(latlng, {
                 icon: L.icon({
-                    iconUrl: "icons/hotel_0star.png",
+                    iconUrl: hotelIcon,
                     iconAnchor: [16, 37],
                     popupAnchor: [0, -37],
                 })
