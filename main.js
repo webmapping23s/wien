@@ -20,7 +20,9 @@ let themaLayer = {
     lines: L.featureGroup().addTo(map),
     zones: L.featureGroup().addTo(map),
     sites: L.featureGroup().addTo(map),
-    hotels: L.featureGroup().addTo(map)
+    hotels: L.markerClusterGroup({
+        disableClusteringAtZoom: 17
+    })
 }
 
 // Hintergrundlayer
@@ -37,7 +39,7 @@ let layerControl = L.control.layers({
     "Vienna Sightseeing Linien": themaLayer.lines,
     "Fußgängerzonen": themaLayer.zones,
     "Sehenswürdigkeiten": themaLayer.sites,
-    "Hotels und Unterkünfte": themaLayer.hotels
+    "Hotels und Unterkünfte": themaLayer.hotels.addTo(map)
 }).addTo(map);
 
 // Maßstab
