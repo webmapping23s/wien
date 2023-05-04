@@ -17,6 +17,14 @@ let map = L.map("map", {
 // Leaflet Hash
 new L.Hash(map);
 
+// Leaflet MiniMap
+var miniMap = new L.Control.MiniMap(
+    L.tileLayer.provider("BasemapAT.basemap"), {
+        toggleDisplay: true,
+        minimized: true
+    }
+).addTo(map);
+
 // thematische Layer
 let themaLayer = {
     stops: L.featureGroup().addTo(map),
